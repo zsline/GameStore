@@ -31,7 +31,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           source: "./wordpress.zip, ./wpcontent.zip"
-          target: ${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}
+          target: ${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}
 
       - name: Enable Maintenance Mode
         uses: appleboy/scp-action@master
@@ -41,21 +41,21 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           source: ".maintenance"
-          target: ${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}
+          target: ${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}
 
       - name: Update WordPress Core
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.0.33public_html/dereka.pro/gamestore-dev
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            find "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}" -type f -name "*.php" ! -name "wp-config.php" -delete
-            rm -r "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wp-admin/" "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wp-includes/"
-            unzip -o "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wordpress.zip" -d "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/"
-            mv "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wordpress"/* "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/"
-            rm -r "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wordpress"
+            find "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}" -type f -name "*.php" ! -name "wp-config.php" -delete
+            rm -r "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wp-admin/" "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wp-includes/"
+            unzip -o "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wordpress.zip" -d "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/"
+            mv "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wordpress"/* "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/"
+            rm -r "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wordpress"
 
       - name: Update Plugins and Theme
         uses: appleboy/ssh-action@v1.0.3
@@ -65,8 +65,8 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            rm -rf "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wp-content/plugins" "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wp-content/mu-plugins" "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wp-content/themes"
-            unzip -o "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wpcontent.zip" -d "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wp-content/"
+            rm -rf "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wp-content/plugins" "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wp-content/mu-plugins" "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wp-content/themes"
+            unzip -o "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wpcontent.zip" -d "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wp-content/"
 
       - name: Disable Maintenance Mode and Remove zips
         uses: appleboy/ssh-action@v1.0.3
@@ -76,6 +76,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            rm -f "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/.maintenance"
-            rm -f "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wpcontent.zip"
-            rm -f "${{ github.event_name == 'push' && 'www/dereka.pro/gamestore-dev' || 'www/dereka.pro/gamestore-live' }}/wordpress.zip"
+            rm -f "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/.maintenance"
+            rm -f "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wpcontent.zip"
+            rm -f "${{ github.event_name == 'push' && 'public_html/dereka.pro/gamestore-dev' || 'public_html/dereka.pro/gamestore-live' }}/wordpress.zip"
