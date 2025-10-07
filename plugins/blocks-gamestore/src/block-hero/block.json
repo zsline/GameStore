@@ -4,7 +4,7 @@
 	"name": "blocks-gamestore/block-hero",
 	"version": "0.1.0",
 	"title": "Hero Block",
-	"category": "blocks-gamestore",
+	"category": "gamestore",
 	"icon": "smiley",
 	"description": "Example block Hero.",
 	"example": {},
