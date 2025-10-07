@@ -1,0 +1,18 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+:root {
+	--action-main: rgba(13, 14, 15, 0.64);
+	--text-primary: #0E0D0F;
+}
+
+.dark-mode-gamestore{
+	--action-main: rgba(255, 255, 255, 0.64);
+	--text-primary: #fff;
+}
+	.block-editor-inner-blocks .block-editor-block-list__layout{
+		display: flex;
+	}

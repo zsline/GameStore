@@ -1,0 +1,57 @@
+import { useBlockProps, InnerBlocks, InspectorControls } from '@wordpress/block-editor';
+import {PanelBody, TextControl} from '@wordpress/components';
+import './editor.scss';
+export default function Edit({attributes, setAttributes}) {
+	const {memberLink, cartLink} = attributes;
+	return (
+		<>
+			<InspectorControls>
+				<PanelBody>
+					<TextControl
+						label="Member Link"
+						value={memberLink}
+						onChange={(value) => setAttributes({memberLink: value})}
+					/>
+					<TextControl
+						label="Cart Link"
+						value={cartLink}
+						onChange={(value) => setAttributes({cartLink: value})}
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<div { ...useBlockProps() }>
+				<div className="inner-header">
+					<InnerBlocks/>
+				<div className="right-section">
+					<div className="header-search">
+						<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M28.289 27.66L23.609 22.95C26.969 19.2 26.699 13.44 22.949 10.05C19.199 6.66002 13.439 6.96002 10.049 10.71C6.65904 14.46 6.95904 20.22 10.709 23.61C14.189 26.76 19.499 26.76 22.979 23.61L27.689 28.32L28.289 27.66ZM16.829 25.05C12.299 25.05 8.60904 21.36 8.60904 16.83C8.60904 12.27 12.299 8.61002 16.829 8.61002C21.359 8.61002 25.049 12.3 25.049 16.83C25.049 21.36 21.359 25.05 16.829 25.05Z" fill="var(--action-main)"/>
+							<path d="M16.8281 9.83997V10.74C20.1881 10.74 22.9181 13.47 22.9181 16.83H23.8181C23.8181 12.96 20.6981 9.83997 16.8281 9.83997Z" fill="var(--action-main)"/>
+						</svg>
+					</div>
+					<div className="header-mode-switcher">
+						<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M21 24V12" stroke="var(--action-main)" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M9 18H12" stroke="var(--action-main)" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M12.5098 9.51013L14.6398 11.6401" stroke="var(--action-main)" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M21 6V9" stroke="var(--action-main)" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M21 30V27" stroke="var(--action-main)" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M12.5098 26.49L14.6398 24.36" stroke="var(--action-main)" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M21 24C24.3137 24 27 21.3137 27 18C27 14.6863 24.3137 12 21 12C17.6863 12 15 14.6863 15 18C15 21.3137 17.6863 24 21 24Z" stroke="var(--action-main)" stroke-opacity="0.64" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</div>
+					{cartLink && (<div className="header-cart"><a href={cartLink}>
+						<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M7.71484 14.5714L9.42913 26.5714H26.572L28.2863 14.5714" stroke="var(--action-main)" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M12.8574 16.2857L14.5717 9.42859" stroke="var(--action-main)" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M23.142 16.2857L21.4277 9.42859" stroke="var(--action-main)" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M6 14.5714H30" stroke="var(--action-main)" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+						</a></div>)}
+					{memberLink && (<div className="header-member"><a href={memberLink}>Member area</a></div>)}	
+				</div>
+				</div>
+			</div>
+		</>
+	);
+}
